@@ -1,3 +1,14 @@
+"""
+Child Health Records Backend API
+
+Features:
+- Child health record management
+- BMI and malnutrition assessment
+- Photo upload support
+- Automatic PDF booklet generation
+- Statistical analysis of malnutrition data
+"""
+
 from fastapi import FastAPI, HTTPException, UploadFile, File
 from pydantic import BaseModel
 from typing import Optional, Dict
@@ -174,6 +185,12 @@ async def upload_photo(health_id: str, file: UploadFile = File(...)):
         
         # Generate filename
         file_extension = os.path.splitext(file.filename)[1]
+        contents = await file.read()
+        if len(contents) > 5 * 1024 * 1024:
+            raise HTTPException(status_code=400, detail="File too large (max 5MB)")
+        
+        with open(file_path, "wb") as buffer:
+            buffer.write(contents)
         filename = f"{health_id}{file_extension}"
         file_path = os.path.join(PHOTOS_DIR, filename)
         
