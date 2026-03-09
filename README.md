@@ -1,46 +1,131 @@
-Child Health Record Booklet - Installation and Usage Guide
+# 🧒 Child Health Record Booklet System
 
-Overview
+## 📌 Overview
 
-A digital platform to manage and track child health records efficiently.
-Designed for low-connectivity environments, it ensures offline-first
-functionality with automatic synchronization once internet access is
-restored.
+The **Child Health Record Booklet System** is a full-stack web application for managing and tracking child health records digitally.
 
-Prerequisites
+Healthcare workers can record child health data such as weight, height, illnesses, and visible symptoms.  
+The backend automatically calculates **BMI and malnutrition status**, stores records, and generates **PDF health booklets**.
 
--   Python 3.8+
--   pip
--   Node.js 16+ or https://nodejs.org/en
--   npm
+The system also supports **photo uploads**, **statistics tracking**, and **record management**.
 
-Installation & Setup
+---
 
-Clone the repository: git clone
-https://github.com/your-username/child-health-record-booklet.git cd
-child-health-record-booklet
+## 🚀 Features
 
-Backend Setup
+• Child health record management  
+• Automatic **BMI calculation**  
+• **Malnutrition status detection**  
+• Upload child photos  
+• Generate **PDF health booklets**  
+• View all stored records  
+• Malnutrition statistics dashboard  
+• Delete existing records  
+• REST API with FastAPI  
 
-cd backend 
-pip install -r requirements.txt 
-python -m uvicorn main:app –reload –port 8000
+---
 
-Backend runs at: http://127.0.0.1:8000
+## 🛠 Tech Stack
 
-Frontend Setup
+**Frontend**
+- React
+- Vite
+- TailwindCSS
 
+**Backend**
+- Python
+- FastAPI
+- Uvicorn
+- ReportLab (PDF generation)
+
+**Storage**
+- JSON file database
+
+---
+
+## 📂 Project Structure
+
+```
+project-root
+│
+├── backend
+│   ├── main.py
+│   ├── requirements.txt
+│   └── child_records.json
+│
+├── frontend
+│   ├── src
+│   ├── package.json
+│   └── vite.config.ts
+│
+└── README.md
+```
+
+---
+
+## ⚙️ Backend Setup
+
+```
+cd backend
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python main.py
+```
+
+Backend runs at:
+
+```
+http://localhost:8000
+```
+
+API docs:
+
+```
+http://localhost:8000/docs
+```
+
+---
+
+## 💻 Frontend Setup
+
+```
 cd frontend
 npm install
 npm run dev
+```
 
-Frontend runs at: http://localhost:xxxx
+Frontend runs at:
 
-Usage
+```
+http://localhost:5173
+```
 
-1.  Start the backend server.
-2.  Start the frontend server.
-3.  Open the frontend URL in a browser.
-4.  Use the interface to add, view, and manage child health records.
+---
 
-To stop servers: press CTRL + C in the terminal.
+## 🔗 Main API Endpoints
+
+| Method | Endpoint | Description |
+|------|------|------|
+| POST | `/upload` | Upload child health record |
+| POST | `/upload-photo` | Upload child photo |
+| GET | `/booklet/{health_id}` | Download PDF booklet |
+| GET | `/records` | Get all records |
+| GET | `/stats` | Malnutrition statistics |
+| DELETE | `/records/{health_id}` | Delete record |
+| GET | `/health` | API health check |
+
+---
+
+## 📈 Future Improvements
+
+• Database integration (MongoDB/PostgreSQL)  
+• Authentication system  
+• Role-based access control  
+• Cloud storage for photos  
+
+---
+
+## 📄 License
+
+Educational project developed for learning and experimentation.
