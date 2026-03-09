@@ -185,14 +185,16 @@ async def upload_photo(health_id: str, file: UploadFile = File(...)):
         
         # Generate filename
         file_extension = os.path.splitext(file.filename)[1]
+        filename = f"{health_id}{file_extension}"
+        file_path = os.path.join(PHOTOS_DIR, filename)
+        
         contents = await file.read()
         if len(contents) > 5 * 1024 * 1024:
-            raise HTTPException(status_code=400, detail="File too large (max 5MB)")
+            raise HTTPException(status_code=400, detail="File too large")
         
         with open(file_path, "wb") as buffer:
             buffer.write(contents)
-        filename = f"{health_id}{file_extension}"
-        file_path = os.path.join(PHOTOS_DIR, filename)
+        
         
         # Save file
         with open(file_path, "wb") as buffer:
